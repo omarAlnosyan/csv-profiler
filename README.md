@@ -2,6 +2,8 @@
 
 A fast, simple Python tool to profile CSV files and generate data quality reports.
 
+Two ways to use it: Web Interface or Command-line.
+
 ## Quick Start (5 minutes)
 
 ### 1. Setup
@@ -17,24 +19,31 @@ source .venv/bin/activate
 pip install -e .
 ```
 
-### 2. Run the Bootcamp CLI
+### 2. Choose Your Interface
 
-#### Web Interface (Streamlit - Recommended)
+#### Option A: Web Interface (Recommended - Easiest)
+
 ```bash
-streamlit run app.py
+python -m streamlit run app.py
 ```
-This opens a web browser with a drag-and-drop interface to upload CSV files and view results instantly.
+
+Then:
+1. A browser window opens at http://localhost:8501
+2. Drag and drop your CSV file (or click to upload)
+3. View instant results in the browser
+4. Download JSON or Markdown reports
 
 Features:
-- Drag and drop file upload
+- Drag-and-drop file upload
 - Real-time data analysis
 - View summary statistics
-- Download JSON and Markdown reports
-- Preview report in browser
+- Column-by-column breakdown
+- Download reports as JSON or Markdown
+- Markdown preview in browser
 
-#### Terminal Commands
+#### Option B: Terminal/Command-line
 
-##### Interactive Mode (Choose File from Terminal)
+##### Interactive Mode (Choose File)
 ```bash
 python -m csv_profiler.cli
 
@@ -42,11 +51,6 @@ Available CSV files:
   1. employees.csv
   2. sample.csv
 Select file number: 1
-
-Profiling: data\employees.csv
-Loaded 8 rows
-Saved: outputs/report.json
-Saved: outputs/report.md
 ```
 
 ##### Direct Mode (Specify File)
@@ -66,7 +70,7 @@ python -m csv_profiler.cli data/employees.csv --report-name employees_2024
 
 ##### Full Example with All Options
 ```bash
-python -m csv_profiler.cli data/employees.csv --out-dir reports --report-name emp_profile_20241216
+python -m csv_profiler.cli data/employees.csv --out-dir reports --report-name emp_profile_20241216 --format both
 ```
 
 ##### View Help
@@ -116,6 +120,38 @@ Example 4: Generate only JSON output
 ```bash
 python -m csv_profiler.cli data/employees.csv --format json
 ```
+Output: outputs/report.json
+
+Example 5: Generate only Markdown output
+```bash
+python -m csv_profiler.cli data/employees.csv --format markdown
+```
+Output: outputs/report.md
+
+Example 6: Use web interface (drag-drop)
+```bash
+python -m streamlit run app.py
+```
+Open browser to http://localhost:8501
+
+### 5. View Results
+
+Terminal mode:
+Output files in outputs/ folder:
+- report.json - Machine-readable data
+- report.md - Human-readable report
+
+View report:
+```bash
+# Windows
+type outputs\report.md
+
+# Linux/Mac
+cat outputs/report.md
+```
+
+Web mode:
+Results display instantly in browser with download buttons
 Output: outputs/report.json
 
 Example 5: Generate only Markdown output
