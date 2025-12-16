@@ -19,7 +19,22 @@ pip install -e .
 
 ### 2. Run the Bootcamp CLI
 
-#### Basic Usage
+#### Interactive Mode (Choose File from Terminal)
+```bash
+python -m csv_profiler.cli
+
+Available CSV files:
+  1. employees.csv
+  2. sample.csv
+Select file number: 1
+
+Profiling: data\employees.csv
+Loaded 8 rows
+Saved: outputs/report.json
+Saved: outputs/report.md
+```
+
+#### Direct Mode (Specify File)
 ```bash
 python -m csv_profiler.cli data/employees.csv
 ```
@@ -47,35 +62,59 @@ python -m csv_profiler.cli --help
 ### 3. Command Options
 
 ```
+Usage:
+  python -m csv_profiler.cli [input_file] [OPTIONS]
+
 Arguments:
-  input_path                Path to input CSV file (required)
+  input_file                Path to input CSV file (optional)
+                           If omitted, opens interactive file selection
 
 Options:
   --out-dir PATH           Output folder (default: outputs)
   --report-name NAME       Base name for outputs (default: report)
+  --format TEXT            Output format: json, markdown, or both (default: both)
+  -f, --format TEXT        Short form of --format
   --help                   Show this help message
 ```
 
 ### 4. Real Examples
 
-Example 1: Basic profiling with date in report name
+Example 1: Interactive file selection
+```bash
+python -m csv_profiler.cli
+# Select from available CSV files in data/ folder
+```
+
+Example 2: Direct profiling with custom report name and date
 ```bash
 python -m csv_profiler.cli data/employees.csv --report-name employees_20241216
 ```
 Output: outputs/employees_20241216.json, outputs/employees_20241216.md
 
-Example 2: Profile to custom folder
+Example 3: Profile to custom folder with custom name
 ```bash
 python -m csv_profiler.cli data/employees.csv --out-dir 2024_reports --report-name dec_analysis
 ```
 Output: 2024_reports/dec_analysis.json, 2024_reports/dec_analysis.md
 
-Example 3: Profile multiple files
+Example 4: Generate only JSON output
+```bash
+python -m csv_profiler.cli data/employees.csv --format json
+```
+Output: outputs/report.json
+
+Example 5: Generate only Markdown output
+```bash
+python -m csv_profiler.cli data/employees.csv --format markdown
+```
+Output: outputs/report.md
+
+Example 6: Profile multiple files
 ```bash
 python -m csv_profiler.cli data/employees.csv --report-name employees_q4
 python -m csv_profiler.cli data/sample.csv --report-name sample_q4
 ```
-Output: outputs/employees_q4.json, outputs/sample_q4.md, outputs/sample_q4.json
+Output: outputs/employees_q4.json, outputs/employees_q4.md, outputs/sample_q4.json, outputs/sample_q4.md
 
 ### 5. View Results
 Output files are generated in your specified folder:
