@@ -1,53 +1,84 @@
-# Bootcamp CSV Profiler
+# CSV Profiler CLI
 
-A Python tool for profiling and analyzing CSV files with comprehensive data quality reports.
+A fast, simple Python tool to profile CSV files and generate data quality reports.
 
-## Features
+## Quick Start (5 minutes)
 
-- CSV file analysis and profiling
-- Data quality assessment
-- Statistical summaries
-- Report generation
-- Command-line interface
-
-## Installation
-
-### Prerequisites
-- Python 3.11+
-- UV (package manager)
-
-### Setup
-
-1. Clone the repository:
+### 1. Setup
 ```bash
-git clone https://github.com/YOUR_USERNAME/bootcamp.git
 cd bootcamp
-```
+python -m venv .venv
 
-2. Activate the virtual environment:
-```bash
 # Windows
 .venv\Scripts\activate
-
 # Linux/Mac
 source .venv/bin/activate
+
+pip install -e .
 ```
 
-3. Install dependencies:
+### 2. Run the Profiler
 ```bash
-uv pip install -e .
-# or
-pip install -e .
+# Profile with default settings (outputs to ./outputs/)
+python -m csv_profiler.cli data/employees.csv
+
+# Custom output directory and name
+python -m csv_profiler.cli data/employees.csv --out-dir my_reports --report-name employees
+
+# View options
+python -m csv_profiler.cli --help
+```
+
+### 3. View Results
+Output files are generated in the `outputs/` folder (or your custom directory):
+- `report.json` - Machine-readable profile
+- `report.md` - Human-readable markdown report
+
+## What It Does
+
+- ✅ Analyzes CSV data types (text, number)
+- ✅ Calculates missing values and percentages
+- ✅ Counts unique values per column
+- ✅ Computes statistics (min, max, mean for numbers)
+- ✅ Generates JSON and Markdown reports
+
+## Usage Examples
+
+```bash
+# Basic
+python -m csv_profiler.cli data/employees.csv
+
+# Custom output
+python -m csv_profiler.cli data/sample.csv --out-dir results --report-name my_data
+
+# View generated reports
+cat outputs/report.md
 ```
 
 ## Project Structure
 
 ```
 bootcamp/
-├── .venv/                    # Virtual environment
-├── src/
-│   └── csv_profiler/         # Main package
-│       ├── __init__.py
+├── src/csv_profiler/
+│   ├── cli.py           # Command-line interface
+│   ├── models.py        # ColumnProfile class
+│   ├── profile.py       # Profiling logic
+│   ├── io.py            # CSV reading
+│   └── render.py        # Report generation
+├── data/
+│   └── employees.csv    # Sample dataset
+├── pyproject.toml       # Package config
+└── README.md
+```
+
+## Requirements
+
+- Python 3.11+
+- Dependencies: typer, pandas, numpy
+
+## License
+
+MIT
 │       ├── io.py             # Input/output operations
 │       ├── profile.py        # Profiling logic
 │       ├── render.py         # Report rendering
