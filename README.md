@@ -17,43 +17,87 @@ source .venv/bin/activate
 pip install -e .
 ```
 
-### 2. Run the Profiler
+### 2. Run the Bootcamp CLI
+
+#### Basic Usage
 ```bash
-# Profile with default settings (outputs to ./outputs/)
 python -m csv_profiler.cli data/employees.csv
+```
 
-# Custom output directory and name
-python -m csv_profiler.cli data/employees.csv --out-dir my_reports --report-name employees
+#### With Custom Output Directory
+```bash
+python -m csv_profiler.cli data/employees.csv --out-dir results
+```
 
-# View options
+#### With Custom Report Name
+```bash
+python -m csv_profiler.cli data/employees.csv --report-name employees_2024
+```
+
+#### Full Example with All Options
+```bash
+python -m csv_profiler.cli data/employees.csv --out-dir reports --report-name emp_profile_20241216
+```
+
+#### View Help
+```bash
 python -m csv_profiler.cli --help
 ```
 
-### 3. View Results
-Output files are generated in the `outputs/` folder (or your custom directory):
-- `report.json` - Machine-readable profile
-- `report.md` - Human-readable markdown report
+### 3. Command Options
+
+```
+Arguments:
+  input_path                Path to input CSV file (required)
+
+Options:
+  --out-dir PATH           Output folder (default: outputs)
+  --report-name NAME       Base name for outputs (default: report)
+  --help                   Show this help message
+```
+
+### 4. Real Examples
+
+Example 1: Basic profiling with date in report name
+```bash
+python -m csv_profiler.cli data/employees.csv --report-name employees_20241216
+```
+Output: outputs/employees_20241216.json, outputs/employees_20241216.md
+
+Example 2: Profile to custom folder
+```bash
+python -m csv_profiler.cli data/employees.csv --out-dir 2024_reports --report-name dec_analysis
+```
+Output: 2024_reports/dec_analysis.json, 2024_reports/dec_analysis.md
+
+Example 3: Profile multiple files
+```bash
+python -m csv_profiler.cli data/employees.csv --report-name employees_q4
+python -m csv_profiler.cli data/sample.csv --report-name sample_q4
+```
+Output: outputs/employees_q4.json, outputs/sample_q4.md, outputs/sample_q4.json
+
+### 5. View Results
+Output files are generated in your specified folder:
+- report.json - Machine-readable profile
+- report.md - Human-readable markdown report
+
+View the markdown report:
+```bash
+# Windows
+type outputs\report.md
+
+# Linux/Mac
+cat outputs/report.md
+```
 
 ## What It Does
 
-- ✅ Analyzes CSV data types (text, number)
-- ✅ Calculates missing values and percentages
-- ✅ Counts unique values per column
-- ✅ Computes statistics (min, max, mean for numbers)
-- ✅ Generates JSON and Markdown reports
-
-## Usage Examples
-
-```bash
-# Basic
-python -m csv_profiler.cli data/employees.csv
-
-# Custom output
-python -m csv_profiler.cli data/sample.csv --out-dir results --report-name my_data
-
-# View generated reports
-cat outputs/report.md
-```
+- Analyzes CSV data types (text, number)
+- Calculates missing values and percentages
+- Counts unique values per column
+- Computes statistics (min, max, mean for numbers)
+- Generates JSON and Markdown reports
 
 ## Project Structure
 
