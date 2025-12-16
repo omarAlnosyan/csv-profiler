@@ -19,7 +19,22 @@ pip install -e .
 
 ### 2. Run the Bootcamp CLI
 
-#### Interactive Mode (Choose File from Terminal)
+#### Web Interface (Streamlit - Recommended)
+```bash
+streamlit run app.py
+```
+This opens a web browser with a drag-and-drop interface to upload CSV files and view results instantly.
+
+Features:
+- Drag and drop file upload
+- Real-time data analysis
+- View summary statistics
+- Download JSON and Markdown reports
+- Preview report in browser
+
+#### Terminal Commands
+
+##### Interactive Mode (Choose File from Terminal)
 ```bash
 python -m csv_profiler.cli
 
@@ -34,27 +49,27 @@ Saved: outputs/report.json
 Saved: outputs/report.md
 ```
 
-#### Direct Mode (Specify File)
+##### Direct Mode (Specify File)
 ```bash
 python -m csv_profiler.cli data/employees.csv
 ```
 
-#### With Custom Output Directory
+##### With Custom Output Directory
 ```bash
 python -m csv_profiler.cli data/employees.csv --out-dir results
 ```
 
-#### With Custom Report Name
+##### With Custom Report Name
 ```bash
 python -m csv_profiler.cli data/employees.csv --report-name employees_2024
 ```
 
-#### Full Example with All Options
+##### Full Example with All Options
 ```bash
 python -m csv_profiler.cli data/employees.csv --out-dir reports --report-name emp_profile_20241216
 ```
 
-#### View Help
+##### View Help
 ```bash
 python -m csv_profiler.cli --help
 ```
