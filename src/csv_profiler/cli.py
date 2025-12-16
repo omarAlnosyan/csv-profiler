@@ -8,6 +8,7 @@ def profile(
     input_path: Path = typer.Argument(..., help="Input CSV file"),
     out_dir: Path = typer.Option(Path("outputs"), "--out-dir", help="Output folder"),
     report_name: str = typer.Option("report", "--report-name", help="Base name for outputs"),
+    format: str = typer.Option("both", "--format", "-f", help="Output format: json, markdown, or both"),
 ):
     """Profile a CSV file and generate data quality reports."""
     
@@ -17,28 +18,28 @@ def profile(
             typer.secho(f"Error: File not found: {input_path}", fg=typer.colors.RED)
             raise typer.BadParameter(f"Input file does not exist: {input_path}")
         
-        typer.secho(f"📊 Profiling: {input_path}", fg=typer.colors.BLUE)
+        typer.secho(f"Profiling: {input_path}", fg=typer.colors.BLUE)
         
         rows = read_csv_rows(input_path)
         if not rows:
             typer.secho("Error: No data found in file", fg=typer.colors.RED)
             raise typer.Exit(code=1)
         
-        typer.secho(f"✓ Loaded {len(rows)} rows", fg=typer.colors.GREEN)
+        typer.secho(f"Loaded {len(rows)} rows", fg=typer.colors.GREEN)
         
         report = basic_profile(rows)
         
         out_dir.mkdir(parents=True, exist_ok=True)
         
-        if report_name in ["json", "both"]:
+        if format in ["json", "both"]:
             json_file = out_dir / f"{report_name}.json"
             write_json(report, json_file)
-            typer.secho(f"✓ Saved: {json_file}", fg=typer.colors.GREEN)
+            typer.secho(f"Saved: {json_file}", fg=typer.colors.GREEN)
         
-        if report_name in ["markdown", "both"]:
+        if format in ["markdown", "both"]:
             md_file = out_dir / f"{report_name}.md"
             write_markdown(report, md_file)
-            typer.secho(f"✓ Saved: {md_file}", fg=typer.colors.GREEN)
+            typer.secho(f"Saved: {md_file}", fg=typer.colors.GREEN)
             
             with open(md_file) as f:
                 typer.echo("\n" + "="*60)
