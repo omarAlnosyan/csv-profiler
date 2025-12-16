@@ -1,10 +1,54 @@
 import streamlit as st
 import json
+import csv
+import sys
 from pathlib import Path
 from io import StringIO
-from src.csv_profiler.io import read_csv_rows
-from src.csv_profiler.profile import basic_profile
-from src.csv_profiler.render import write_json, write_markdown
+
+# Add src to path for imports
+sys.path.insert(0, str(Path(__file__).parent / "src"))
+
+from csv_profiler.io import read_csv_rows
+from csv_profiler.profile import basic_profile
+
+def generate_markdown_report(report: dict, filename: str) -> str:
+    """Generate markdown report from profile data."""
+    lines = []
+    
+    lines.append(f"# CSV Profile: {filename}\n")
+    
+    summary = report.get("summary", {})
+    lines.append("## Summary\n")
+    lines.append(f"- **Rows:** {summary.get('rows', 0):,}")
+    lines.append(f"- **Columns:** {summary.get('columns', 0):,}\n")
+    
+    lines.append("## Columns Overview\n")
+    lines.append("| Column | Type | Missing | Missing % | Unique |")
+    lines.append("|--------|------|---------|-----------|--------|")
+    
+    for col in report.get("columns", []):
+        col_name = col.get("name", "")
+        col_type = col.get("type", "")
+        missing = col.get("missing", 0)
+        missing_pct = col.get("missing_pct", 0)
+        unique = col.get("unique", 0)
+        
+        lines.append(f"| {col_name} | {col_type} | {missing} | {missing_pct:.1f}% | {unique} |")
+    
+    lines.append("\n## Column Details\n")
+    
+    for col in report.get("columns", []):
+        col_name = col.get("name", "")
+        col_type = col.get("type", "")
+        
+        lines.append(f"### {col_name}")
+        lines.append(f"**Type:** {col_type}")
+        lines.append(f"**Total:** {col.get('total', 0)}")
+        lines.append(f"**Missing:** {col.get('missing', 0)}")
+        lines.append(f"**Unique:** {col.get('unique', 0)}")
+        lines.append("")
+    
+    return "\n".join(lines)
 
 st.set_page_config(page_title="CSV Profiler", layout="wide")
 
@@ -109,42 +153,3 @@ if uploaded_file is not None:
 
 else:
     st.info("Upload a CSV file to get started")
-
-def generate_markdown_report(report: dict, filename: str) -> str:
-    """Generate markdown report from profile data."""
-    lines = []
-    
-    lines.append(f"# CSV Profile: {filename}\n")
-    
-    summary = report.get("summary", {})
-    lines.append("## Summary\n")
-    lines.append(f"- **Rows:** {summary.get('rows', 0):,}")
-    lines.append(f"- **Columns:** {summary.get('columns', 0):,}\n")
-    
-    lines.append("## Columns Overview\n")
-    lines.append("| Column | Type | Missing | Missing % | Unique |")
-    lines.append("|--------|------|---------|-----------|--------|")
-    
-    for col in report.get("columns", []):
-        col_name = col.get("name", "")
-        col_type = col.get("type", "")
-        missing = col.get("missing", 0)
-        missing_pct = col.get("missing_pct", 0)
-        unique = col.get("unique", 0)
-        
-        lines.append(f"| {col_name} | {col_type} | {missing} | {missing_pct:.1f}% | {unique} |")
-    
-    lines.append("\n## Column Details\n")
-    
-    for col in report.get("columns", []):
-        col_name = col.get("name", "")
-        col_type = col.get("type", "")
-        
-        lines.append(f"### {col_name}")
-        lines.append(f"**Type:** {col_type}")
-        lines.append(f"**Total:** {col.get('total', 0)}")
-        lines.append(f"**Missing:** {col.get('missing', 0)}")
-        lines.append(f"**Unique:** {col.get('unique', 0)}")
-        lines.append("")
-    
-    return "\n".join(lines)
