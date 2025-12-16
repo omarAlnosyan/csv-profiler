@@ -4,8 +4,38 @@ from csv_profiler.io import read_csv_rows
 from csv_profiler.profile import basic_profile
 from csv_profiler.render import write_json, write_markdown
 
+def get_available_files() -> list[Path]:
+    """Get all CSV files in the data directory."""
+    data_dir = Path("data")
+    if not data_dir.exists():
+        return []
+    return sorted(data_dir.glob("*.csv"))
+
+def choose_file() -> Path:
+    """Interactive file selection."""
+    files = get_available_files()
+    
+    if not files:
+        typer.secho("Error: No CSV files found in data/ directory", fg=typer.colors.RED)
+        raise typer.Exit(code=1)
+    
+    typer.echo("\nAvailable CSV files:")
+    for i, file in enumerate(files, 1):
+        typer.echo(f"  {i}. {file.name}")
+    
+    while True:
+        try:
+            choice = typer.prompt("Select file number")
+            idx = int(choice) - 1
+            if 0 <= idx < len(files):
+                return files[idx]
+            else:
+                typer.secho("Invalid selection. Try again.", fg=typer.colors.RED)
+        except ValueError:
+            typer.secho("Invalid input. Enter a number.", fg=typer.colors.RED)
+
 def profile(
-    input_path: Path = typer.Argument(..., help="Input CSV file"),
+    input_path: Path = typer.Argument(None, help="Input CSV file (optional - choose interactively if omitted)"),
     out_dir: Path = typer.Option(Path("outputs"), "--out-dir", help="Output folder"),
     report_name: str = typer.Option("report", "--report-name", help="Base name for outputs"),
     format: str = typer.Option("both", "--format", "-f", help="Output format: json, markdown, or both"),
@@ -13,6 +43,10 @@ def profile(
     """Profile a CSV file and generate data quality reports."""
     
     try:
+        # If no input file provided, prompt user to choose
+        if input_path is None:
+            input_path = choose_file()
+        
         # Validate input file exists
         if not input_path.exists():
             typer.secho(f"Error: File not found: {input_path}", fg=typer.colors.RED)
