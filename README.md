@@ -8,42 +8,38 @@ Analyze CSV files in seconds.
 git clone https://github.com/omarAlnosyan/csv-profiler.git
 cd csv-profiler
 cd bootcamp
+cd bootcamp
 ```
 
 ## Quick Start
 
-1. **Navigate to the bootcamp directory:**
-   ```bash
-   cd bootcamp
-   ```
-
-2. **Create virtual environment:**
+1. **Create virtual environment:**
    ```bash
    uv venv -p 3.11
    ```
 
-3. **Activate it:**
+2. **Activate it:**
    ```bash
    .\.venv\Scripts\activate
    ```
    (Linux/Mac: `. .venv/bin/activate`)
 
-4. **Install dependencies:**
+3. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-5. **Install the package in development mode:**
+4. **Install the package in development mode:**
    ```bash
    pip install -e .
    ```
 
-6. **Run CLI:**
+5. **Run CLI:**
    ```bash
    python -m csv_profiler.cli data/sample.csv
    ```
 
-7. **Run Web App:**
+6. **Run Web App:**
    ```bash
    streamlit run app.py
    ```
