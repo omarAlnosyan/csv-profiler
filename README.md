@@ -49,54 +49,11 @@ Features:
 #### Interactive Mode (Choose File)
 
 ```bash
-python -m csv_profiler.cli
-# or
 csv-profiler
 ```
 
-Output:
-```
-Available CSV files:
-  1. employees.csv
-  2. sample.csv
-Select file number: 1
 
-Output format:
-  1. json
-  2. markdown
-  3. both
-Select format number: 3
 
-Profiling: data\employees.csv
-Loaded 8 rows
-Saved: outputs/report.json
-Saved: outputs/report.md
-
-============================================================
-# CSV Profiling Report
-...
-```
-
-#### Direct Mode (Specify File)
-
-```bash
-# Profile with default format (both)
-python -m csv_profiler.cli data/sample.csv
-
-# Profile with JSON only
-python -m csv_profiler.cli data/employees.csv --format json
-# or
-csv-profiler data/employees.csv -f json
-
-# Profile with Markdown only
-python -m csv_profiler.cli data/employees.csv --format markdown
-
-# Save to specific directory
-python -m csv_profiler.cli data/employees.csv --out-dir reports
-
-# Custom report name
-python -m csv_profiler.cli data/employees.csv --report-name employees_2024
-```
 
 #### View Results
 
@@ -108,33 +65,5 @@ type outputs\report.md
 cat outputs/report.md
 ```
 
-## Examples
 
-```bash
-# Example 1: Interactive selection
-python -m csv_profiler.cli
-csv-profiler
-
-# Example 2: JSON output only
-python -m csv_profiler.cli data/employees.csv --format json
-csv-profiler data/employees.csv -f json
-
-# Example 3: Markdown output only
-python -m csv_profiler.cli data/employees.csv --format markdown
-
-# Example 4: Custom output folder and name
-python -m csv_profiler.cli data/employees.csv --out-dir reports --report-name emp_profile_q4
-
-# Example 5: Web interface (Drag & drop uploads)
-python -m streamlit run app.py
-```
-
-## Features
-
-- CSV statistical profiling
-- Missing values detection
-- Type detection
-- JSON & Markdown reports
-- Interactive web dashboard
-- Command-line tool with interactive selection
 
