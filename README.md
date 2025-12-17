@@ -49,12 +49,11 @@ python -m csv_profiler.cli profile
 ```
 Available CSV files:
   1. employees.csv
-  2. iris.csv
-  3. sample.csv
+  2. sample.csv
 
 Select file number: 1
 ```
-(Enter `1`, `2`, or `3`)
+(Enter `1` or `2`)
 
 **Step 3: Choose output format**
 ```bash
@@ -82,7 +81,6 @@ python -m csv_profiler.cli profile data/employees.csv --format json
 
 **Available CSV Files:**
 - `data/employees.csv`
-- `data/iris.csv`
 - `data/sample.csv`
 
 **Output Format Options:**
@@ -97,7 +95,7 @@ python -m csv_profiler.cli profile data/employees.csv --format json
 python -m csv_profiler.cli profile data/employees.csv --format json
 
 # Markdown only
-python -m csv_profiler.cli profile data/iris.csv --format markdown
+python -m csv_profiler.cli profile data/sample.csv --format markdown
 
 # Both formats (default)
 python -m csv_profiler.cli profile data/sample.csv --format both
