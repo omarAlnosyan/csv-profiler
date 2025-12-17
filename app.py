@@ -68,7 +68,8 @@ st.markdown("### Step 1: Upload Your CSV File")
 st.markdown("*Drag and drop or click to select a CSV file*")
 
 uploaded_file = st.file_uploader(
-    label="",
+    label="Select CSV file",
+    label_visibility="collapsed",
     type=["csv"],
     help="Upload a CSV file to analyze. Supported format: .csv"
 )
