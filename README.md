@@ -1,4 +1,4 @@
-# CSV Profiler - Week 3 Day 5
+# CSV Profiler 
 
 A professional Python package + Streamlit web app for CSV data profiling and analysis.
 
