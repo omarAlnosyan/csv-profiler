@@ -2,6 +2,14 @@
 
 Analyze CSV files in seconds.
 
+## Clone the Repository
+
+```bash
+git clone https://github.com/omarAlnosyan/csv-profiler.git
+cd csv-profiler
+cd bootcamp
+```
+
 ## Quick Start
 
 1. **Create virtual environment:**
