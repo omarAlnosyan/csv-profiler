@@ -25,14 +25,14 @@ from csv_profiler.render import render_markdown
 # ============================================================================
 st.set_page_config(
     page_title="CSV Profiler",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="collapsed"
 )
 
 # ============================================================================
 # Title and Description
 # ============================================================================
-st.title("📊 CSV Profiler")
+st.title("CSV Profiler")
 st.markdown("""
 **Upload a CSV file** → **Generate Report** → **View Analysis**
 
@@ -56,10 +56,10 @@ uploaded_file = st.file_uploader(
 # Generate Report Button (Always visible)
 # ============================================================================
 st.subheader("Step 2: Generate Report")
-if st.button("🚀 Generate Report", use_container_width=True):
+if st.button("Generate Report", use_container_width=True):
     # Validate: Check if file was uploaded
     if uploaded_file is None:
-        st.error("⚠️ Please upload a CSV file first!")
+        st.error("Please upload a CSV file first!")
     else:
         # Decode CSV file to text
         text = uploaded_file.getvalue().decode("utf-8-sig")
@@ -76,7 +76,7 @@ if st.button("🚀 Generate Report", use_container_width=True):
         st.session_state["filename"] = uploaded_file.name
         
         # Show success message
-        st.success("✅ Report generated successfully!")
+        st.success("Report generated successfully!")
 
 st.divider()
 
@@ -91,7 +91,7 @@ if "report_data" in st.session_state:
         markdown_content = render_markdown(st.session_state["report"])
         st.markdown(markdown_content)
     
-    # Download Report Button (JSON format)
+    # Download Report Section
     st.divider()
     st.subheader("Download Report")
     
@@ -100,7 +100,7 @@ if "report_data" in st.session_state:
     with col1:
         json_str = json.dumps(st.session_state["report"], indent=2)
         st.download_button(
-            label="📥 Download JSON Report",
+            label="Download JSON Report",
             data=json_str,
             file_name=f"{st.session_state['filename'].replace('.csv', '')}_report.json",
             mime="application/json",
@@ -109,9 +109,14 @@ if "report_data" in st.session_state:
     
     with col2:
         st.download_button(
-            label="📥 Download Markdown Report",
+            label="Download Markdown Report",
             data=markdown_content,
             file_name=f"{st.session_state['filename'].replace('.csv', '')}_report.md",
             mime="text/markdown",
             use_container_width=True
         )
+    
+    # Expandable JSON Preview
+    st.divider()
+    with st.expander("View JSON (Click to expand)"):
+        st.json(st.session_state["report"])

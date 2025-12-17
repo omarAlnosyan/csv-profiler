@@ -2,15 +2,15 @@
 
 A professional Python package + Streamlit web app for CSV data profiling and analysis.
 
-## 📋 Overview
+## Overview
 
 **CSV Profiler** helps you analyze CSV files by:
-- ✅ Detecting data types (string, number, date, etc.)
-- ✅ Identifying missing values
-- ✅ Counting unique values per column
-- ✅ Generating detailed profiling reports (JSON & Markdown)
+- Detecting data types (string, number, date, etc.)
+- Identifying missing values
+- Counting unique values per column
+- Generating detailed profiling reports (JSON & Markdown)
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option 1: Using Streamlit Web Interface (Recommended)
 
@@ -51,7 +51,7 @@ cat outputs/report.json
 cat outputs/report.md
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 bootcamp/
@@ -69,7 +69,7 @@ bootcamp/
 └── outputs/                   # Generated reports
 ```
 
-## 🔧 CLI Reference
+## CLI Reference
 
 ### Command: `profile`
 
@@ -101,7 +101,7 @@ python -m csv_profiler.cli profile data/data.csv -f markdown
 python -m csv_profiler.cli
 ```
 
-## 📊 Input/Output
+## Input/Output
 
 ### Input
 - **CSV files** with headers
@@ -154,17 +154,17 @@ python -m csv_profiler.cli
 **Unique:** 5
 ```
 
-## 🎨 Streamlit App Features
+## Streamlit App Features
 
 | Feature | Description |
 |---------|-------------|
-| 📁 File Upload | Drag-and-drop or browse CSV files |
-| 🔍 Analysis | Automatic profiling with statistics |
-| 📄 Markdown View | Formatted report with tables |
-| 💾 Downloads | Export as JSON or Markdown |
-| 💬 User-Friendly | Step-by-step interface |
+| File Upload | Drag-and-drop or browse CSV files |
+| Analysis | Automatic profiling with statistics |
+| Markdown View | Formatted report with tables |
+| Downloads | Export as JSON or Markdown |
+| User-Friendly | Step-by-step interface |
 
-## 📦 Requirements
+## Requirements
 
 ```
 streamlit>=1.28.0
@@ -178,10 +178,10 @@ Install all dependencies:
 pip install -r requirements.txt
 ```
 
-## 🐍 Python Version
+## Python Version
 - Python 3.9+
 
-## 📝 Code Documentation
+## Code Documentation
 
 Each code block is documented with clear comments explaining:
 - What each section does
@@ -197,19 +197,19 @@ st.subheader("Step 1: Upload File")
 uploaded_file = st.file_uploader(...)  # User selects CSV file
 ```
 
-## 🔄 How It Works
+## How It Works
 
 ### Processing Pipeline
 
 ```
 CSV File Upload
-      ↓
+      |
 Parse CSV Data (DictReader)
-      ↓
+      |
 Generate Profile (basic_profile)
-      ↓
+      |
 Render Markdown (render_markdown)
-      ↓
+      |
 Display & Download Results
 ```
 
@@ -223,7 +223,7 @@ Each column gets analyzed with:
 - **unique**: Distinct values
 - **missing_pct**: Missing percentage
 
-## 💡 Example Usage
+## Example Usage
 
 ### Data
 ```csv
@@ -243,7 +243,7 @@ Mohammed,31,python,58000
   - script: 1 missing (20%)
   - salary: 1 missing (20%)
 
-## 🚀 Deployment
+## Deployment
 
 ### Local Deployment
 ```bash
@@ -256,30 +256,30 @@ python -m streamlit run csv_upload_app.py
 3. Connect your GitHub repository
 4. Select `csv_upload_app.py` as the main file
 
-## 📚 Learning Resources
+## Learning Resources
 
 - [Streamlit Documentation](https://docs.streamlit.io/)
 - [Typer CLI Documentation](https://typer.tiangolo.com/)
 - [Pandas Documentation](https://pandas.pydata.org/docs/)
 
-## 🤝 Contributing
+## Contributing
 
 Feel free to:
 - Report issues
 - Suggest features
 - Submit pull requests
 
-## 📄 License
+## License
 
 MIT License
 
-## 👨‍💻 Author
+## Author
 
 Created for SDAIA Bootcamp - Week 3 Day 5
 
 ---
 
-**Happy profiling! 📊**
+Happy profiling!
   1. employees.csv
   2. sample.csv
 Select file number: 1
