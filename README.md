@@ -7,8 +7,13 @@ Analyze CSV files in seconds. Detect data types, missing values, and generate re
 ```bash
 # Clone repository
 git clone https://github.com/omarAlnosyan/csv-profiler.git
-cd csv-profiler/bootcamp
+cd csv-profiler
+cd bootcamp
+```
 
+Now you're in the bootcamp folder. Continue:
+
+```bash
 # Create virtual environment
 python -m venv .venv
 
@@ -21,6 +26,8 @@ source .venv/bin/activate
 # Install dependencies
 pip install -r requirements.txt
 ```
+
+Done! Now ready to use.
 
 ## Usage
 
