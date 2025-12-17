@@ -33,12 +33,17 @@ cd bootcamp
    pip install -r requirements.txt
    ```
 
-5. **Run CLI:**
+5. **Install the package in development mode:**
+   ```bash
+   pip install -e .
+   ```
+
+6. **Run CLI:**
    ```bash
    python -m csv_profiler.cli data/sample.csv
    ```
 
-6. **Run Web App:**
+7. **Run Web App:**
    ```bash
    streamlit run app.py
    ```
