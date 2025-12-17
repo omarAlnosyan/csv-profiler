@@ -31,18 +31,6 @@ pip install -e .
 python -m streamlit run app.py
 ```
 
-Then:
-1. A browser window opens at http://localhost:8501
-2. Drag and drop your CSV file (or click to upload)
-3. View instant results in the browser
-4. Download JSON or Markdown reports
-
-Features:
-- Drag-and-drop file upload
-- Real-time data analysis
-- View summary statistics
-- Column-by-column breakdown
-- Download reports as JSON or Markdown
 
 ### Option B: Command-line
 
@@ -51,9 +39,6 @@ Features:
 ```bash
 csv-profiler
 ```
-
-
-
 
 #### View Results
 
