@@ -10,24 +10,29 @@ Clone the repository from GitHub:
 git clone https://github.com/omarAlnosyan/csv-profiler.git
 cd csv-profiler
 cd bootcamp
-cd bootcamp
 ```
 
-**IMPORTANT:** The repository has a nested `bootcamp/bootcamp` structure. 
+**Note on Directory Structure:**
 
-Your final path should end with: `...\csv-profiler\bootcamp\bootcamp\`
+The repository has a nested structure. After cloning, you may be in:
+- `csv-profiler/bootcamp/` (correct - this has the code)
+- OR `csv-profiler/bootcamp/bootcamp/` (also correct - alternate structure)
 
-To verify you're in the right place, run:
+**How to verify you're in the right place:**
+
+Run:
 ```bash
 ls
 ```
 
-You should see these files/folders:
+You should see:
 - `src/` (folder with csv_profiler code)
 - `data/` (folder with sample.csv and employees.csv)
 - `app.py`
 - `pyproject.toml`
 - `requirements.txt`
+
+If you see these files, **STOP** - you're in the right directory!
 
 ## Quick Start - Step by Step
 
@@ -101,29 +106,31 @@ The app will open in your browser at `http://localhost:8501`
 
 ### Error: "No module named 'csv_profiler'"
 
-**This means you're in the WRONG directory!**
+**Cause:** The package wasn't installed or `pip install -e .` wasn't run.
 
-Check your current path - it should end with `\bootcamp\bootcamp\` with **two** `bootcamp` folders.
+**Solution:** Run this command (while in the correct directory):
 
-**Solution:** 
-1. Run `pwd` or check the path in your terminal
-2. If you see `\bootcamp\` with only ONE bootcamp at the end, you need to run:
-   ```bash
-   cd bootcamp
-   ```
-3. Verify with: `ls` - you should see `src/`, `data/`, `app.py`, etc.
+```bash
+pip install -e .
+```
 
-Then try again:
+Wait for it to complete, then try:
 ```bash
 python -m csv_profiler.cli data/sample.csv
 ```
 
+### Error: "Cannot find path" or directory not found
+
+**Cause:** You're in the wrong directory.
+
+**Solution:** 
+1. Check your current path with `ls` or `Get-Location`
+2. You should see `src/`, `data/`, `app.py` listed
+3. If not, navigate correctly (may need one more `cd bootcamp`)
+
 ### Error: "File does not exist"
 
-**Solution:** Make sure you're in the correct nested `bootcamp/bootcamp` directory with the `data/` folder. Run:
-```bash
-ls
-```
+**Cause:** The `data/` folder is missing or you're not in the right directory.
 
-You should see `data/` folder listed.
+**Solution:** Make sure you're in a directory that has a `data/` folder with CSV files.
 
