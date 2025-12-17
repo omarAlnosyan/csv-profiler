@@ -2,85 +2,41 @@
 
 Analyze CSV files in seconds. Detect data types, missing values, and generate reports.
 
-## Setup (1 minute)
+## Installation
+
+### Step 1: Set up a virtual environment
 
 ```bash
-# Clone repository
-git clone https://github.com/omarAlnosyan/csv-profiler.git
-cd csv-profiler
-cd bootcamp
+uv venv -p 3.11
 ```
 
-Now you're in the bootcamp folder. Continue:
+### Step 2: Activate it
 
+**Windows (PowerShell):**
 ```bash
-# Create virtual environment
-python -m venv .venv
-
-# Activate virtual environment
-# Windows:
-.venv\Scripts\Activate
-# macOS/Linux:
-source .venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
+.\.venv\Scripts\activate
 ```
 
-Done! Now ready to use.
+**Linux / Mac:**
+```bash
+. .venv/bin/activate
+```
 
 ## Usage
 
-### Option 1: Web Interface
+### CLI
+
+Use this command:
 
 ```bash
-python -m streamlit run app.py
+uv run python -m csv_profiler.cli data/sample.csv
 ```
 
-This opens the app in your browser automatically. The URL will be displayed in the console (typically `http://localhost:8501`).
+### Open Streamlit (GUI)
 
-To use a different port:
+Command:
+
 ```bash
-python -m streamlit run app.py --server.port 8502
+uv run streamlit run app.py
 ```
 
-**Steps:**
-1. Upload CSV file
-2. Click "Generate Report"
-3. Download results (auto-saved to `outputs/` folder)
-
----
-
-### Option 2: Command Line
-
-**Interactive (Choose file + format):**
-```bash
-python -m csv_profiler.cli profile
-```
-
-Select file number, then choose format:
-- `--format json` → JSON only
-- `--format markdown` → Markdown only
-- `--format both` → Both (default)
-
-**Direct (Specify in one command):**
-```bash
-python -m csv_profiler.cli profile data/employees.csv --format json
-python -m csv_profiler.cli profile data/sample.csv --format markdown
-python -m csv_profiler.cli profile data/employees.csv --format both
-```
-
-**View results:**
-```bash
-# Windows
-type outputs\report.json
-type outputs\report.md
-
-# macOS/Linux
-cat outputs/report.json
-cat outputs/report.md
-```
-
-## License
-
-MIT
