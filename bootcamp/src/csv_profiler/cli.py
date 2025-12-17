@@ -54,7 +54,9 @@ def choose_format() -> str:
                 typer.secho("Invalid selection. Try again.", fg=typer.colors.RED)
         except ValueError:
             typer.secho("Invalid input. Enter a number.", fg=typer.colors.RED)
-@app.command()def profile(
+
+@app.command()
+def profile(
     input_path: Path = typer.Argument(None, help="Input CSV file (optional - choose interactively if omitted)"),
     out_dir: Path = typer.Option(Path("outputs"), "--out-dir", help="Output folder"),
     report_name: str = typer.Option("report", "--report-name", help="Base name for outputs"),
