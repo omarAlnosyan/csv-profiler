@@ -2,6 +2,8 @@
 
 Analyze CSV files in seconds.
 
+Two ways to use it: **Web Interface** or **Command-line**.
+
 ## Setup
 
 ```bash
@@ -23,17 +25,103 @@ pip install -e .
 
 ## Run
 
-### Command Line
+### Option A: Web Interface (Recommended - Easiest)
+
 ```bash
-python -m csv_profiler.cli data/sample.csv
-python -m csv_profiler.cli data/employees.csv --output outputs
+python -m streamlit run app.py
 ```
 
-### Streamlit Web App
+Then:
+1. A browser window opens at http://localhost:8501
+2. Drag and drop your CSV file (or click to upload)
+3. View instant results in the browser
+4. Download JSON or Markdown reports
+
+Features:
+- Drag-and-drop file upload
+- Real-time data analysis
+- View summary statistics
+- Column-by-column breakdown
+- Download reports as JSON or Markdown
+
+### Option B: Command-line
+
+#### Interactive Mode (Choose File)
+
 ```bash
-streamlit run app.py
+python -m csv_profiler.cli
 ```
-Opens at: http://localhost:8501
+
+Output:
+```
+Available CSV files:
+  1. employees.csv
+  2. sample.csv
+Select file number: 1
+
+Output format:
+  1. json
+  2. markdown
+  3. both
+Select format number: 3
+
+Profiling: data\employees.csv
+Loaded 8 rows
+Saved: outputs/report.json
+Saved: outputs/report.md
+
+============================================================
+# CSV Profiling Report
+...
+```
+
+#### Direct Mode (Specify File)
+
+```bash
+# Profile with default format (both)
+python -m csv_profiler.cli data/sample.csv
+
+# Profile with JSON only
+python -m csv_profiler.cli data/employees.csv --format json
+
+# Profile with Markdown only
+python -m csv_profiler.cli data/employees.csv --format markdown
+
+# Save to specific directory
+python -m csv_profiler.cli data/employees.csv --out-dir reports
+
+# Custom report name
+python -m csv_profiler.cli data/employees.csv --report-name employees_2024
+```
+
+#### View Results
+
+```bash
+# Windows
+type outputs\report.md
+
+# Linux/Mac
+cat outputs/report.md
+```
+
+## Examples
+
+```bash
+# Example 1: Interactive selection
+python -m csv_profiler.cli
+
+# Example 2: JSON output only
+python -m csv_profiler.cli data/employees.csv --format json
+
+# Example 3: Markdown output only
+python -m csv_profiler.cli data/employees.csv --format markdown
+
+# Example 4: Custom output folder and name
+python -m csv_profiler.cli data/employees.csv --out-dir reports --report-name emp_profile_q4
+
+# Example 5: Web interface
+python -m streamlit run app.py
+```
 
 ## Features
 
@@ -42,5 +130,5 @@ Opens at: http://localhost:8501
 - Type detection
 - JSON & Markdown reports
 - Interactive web dashboard
-- Command-line tool
+- Command-line tool with interactive selection
 
