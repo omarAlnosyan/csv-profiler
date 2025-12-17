@@ -50,5 +50,15 @@ type outputs\report.md
 cat outputs/report.md
 ```
 
+#### View JSON File
+
+```bash
+# Windows
+type outputs\report.json
+
+# Linux/Mac
+cat outputs/report.json
+```
+
 
 
