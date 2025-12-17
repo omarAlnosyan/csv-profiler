@@ -38,60 +38,79 @@ Reports auto-save to `outputs/` folder.
 
 ### Option 2: Command Line
 
-**Available CSV Files in `data/` folder:**
+#### Interactive Mode (Recommended)
+
+**Step 1: Start the CLI without file argument**
+```bash
+python -m csv_profiler.cli profile
+```
+
+**Step 2: Select CSV file from list**
+```
+Available CSV files:
+  1. employees.csv
+  2. iris.csv
+  3. sample.csv
+
+Select file number: 1
+```
+(Enter `1`, `2`, or `3`)
+
+**Step 3: Choose output format**
+```bash
+--format json          # JSON only
+--format markdown      # Markdown only  
+--format both          # Both (default)
+```
+
+**Example - Interactive Workflow:**
+```bash
+python -m csv_profiler.cli profile
+# Select file: 1
+# Generates: outputs/report.json + outputs/report.md
+```
+
+---
+
+#### Direct Mode (Specify everything in one command)
+
+**Select data file + Choose format:**
+
+```bash
+python -m csv_profiler.cli profile data/employees.csv --format json
+```
+
+**Available CSV Files:**
 - `data/employees.csv`
 - `data/iris.csv`
 - `data/sample.csv`
 
-Or use your own CSV file.
+**Output Format Options:**
+- `--format json` → JSON only
+- `--format markdown` → Markdown only
+- `--format both` → Both files (default)
 
----
-
-#### Basic Usage (Generates both JSON + Markdown)
-
-```bash
-python -m csv_profiler.cli profile data/employees.csv --output outputs
-```
-
-This creates:
-- `outputs/report.json` (machine-readable)
-- `outputs/report.md` (human-readable)
-
----
-
-#### Choose Output Format
-
-**JSON Only:**
-```bash
-python -m csv_profiler.cli profile data/employees.csv --output outputs --format json
-```
-Result: `outputs/report.json`
-
-**Markdown Only:**
-```bash
-python -m csv_profiler.cli profile data/employees.csv --output outputs --format markdown
-```
-Result: `outputs/report.md`
-
-**Both (Default):**
-```bash
-python -m csv_profiler.cli profile data/employees.csv --output outputs --format both
-```
-Result: `outputs/report.json` + `outputs/report.md`
-
----
-
-#### Custom Output Folder
+**Examples:**
 
 ```bash
-python -m csv_profiler.cli profile data/employees.csv --output my_reports
+# JSON only
+python -m csv_profiler.cli profile data/employees.csv --format json
+
+# Markdown only
+python -m csv_profiler.cli profile data/iris.csv --format markdown
+
+# Both formats (default)
+python -m csv_profiler.cli profile data/sample.csv --format both
+
+# Custom output folder
+python -m csv_profiler.cli profile data/employees.csv --out-dir my_reports --format both
 ```
 
 ---
 
 #### View Generated Reports
 
-**View Markdown Report (Human-Readable):**
+**View Markdown (Human-Readable):**
 ```bash
 # Windows
 type outputs\report.md
@@ -100,7 +119,7 @@ type outputs\report.md
 cat outputs/report.md
 ```
 
-**View JSON Report (Raw Data):**
+**View JSON (Raw Data):**
 ```bash
 # Windows
 type outputs\report.json
