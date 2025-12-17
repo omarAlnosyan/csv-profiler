@@ -28,10 +28,12 @@ dev = [
 ]
 
 [tool.setuptools]
-packages = ["csv_profiler"]
+packages = [
+    "csv_profiler",
+]
 
 [tool.setuptools.package-dir]
 "" = "src"
 
-[tool.uv]
-python-preference = "only-managed"
+[project.scripts]
+csv-profiler = "csv_profiler.cli:app"
