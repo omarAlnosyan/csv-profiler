@@ -1,42 +1,27 @@
 # CSV Profiler
 
-Analyze CSV files in seconds. Detect data types, missing values, and generate reports.
+Analyze CSV files in seconds.
 
-## Installation
+## Quick Start
 
-### Step 1: Set up a virtual environment
+1. **Create virtual environment:**
+   ```bash
+   uv venv -p 3.11
+   ```
 
-```bash
-uv venv -p 3.11
-```
+2. **Activate it:**
+   ```bash
+   .\.venv\Scripts\activate
+   ```
+   (Linux/Mac: `. .venv/bin/activate`)
 
-### Step 2: Activate it
+3. **Run CLI:**
+   ```bash
+   uv run python -m csv_profiler.cli data/sample.csv
+   ```
 
-**Windows (PowerShell):**
-```bash
-.\.venv\Scripts\activate
-```
-
-**Linux / Mac:**
-```bash
-. .venv/bin/activate
-```
-
-## Usage
-
-### CLI
-
-Use this command:
-
-```bash
-uv run python -m csv_profiler.cli data/sample.csv
-```
-
-### Open Streamlit (GUI)
-
-Command:
-
-```bash
-uv run streamlit run app.py
-```
+4. **Run Web App:**
+   ```bash
+   uv run streamlit run app.py
+   ```
 
