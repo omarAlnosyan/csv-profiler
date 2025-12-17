@@ -9,10 +9,14 @@ Analyze CSV files in seconds. Detect data types, missing values, and generate re
 git clone https://github.com/omarAlnosyan/csv-profiler.git
 cd csv-profiler/bootcamp
 
-# Create and activate virtual environment
+# Create virtual environment
 python -m venv .venv
-.venv\Scripts\Activate              # Windows
-source .venv/bin/activate           # macOS/Linux
+
+# Activate virtual environment
+# Windows:
+.venv\Scripts\Activate
+# macOS/Linux:
+source .venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -26,7 +30,12 @@ pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-Open browser to: **http://localhost:8501**
+This opens the app in your browser automatically. The URL will be displayed in the console (typically `http://localhost:8501`).
+
+To use a different port:
+```bash
+python -m streamlit run app.py --server.port 8502
+```
 
 **Steps:**
 1. Upload CSV file
