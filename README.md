@@ -1,53 +1,285 @@
-# CSV Profiler CLI
+# CSV Profiler - Week 3 Day 5
 
-A fast, simple Python tool to profile CSV files and generate data quality reports.
+A professional Python package + Streamlit web app for CSV data profiling and analysis.
 
-Two ways to use it: Web Interface or Command-line.
+## 📋 Overview
 
-## Quick Start (5 minutes)
+**CSV Profiler** helps you analyze CSV files by:
+- ✅ Detecting data types (string, number, date, etc.)
+- ✅ Identifying missing values
+- ✅ Counting unique values per column
+- ✅ Generating detailed profiling reports (JSON & Markdown)
 
-### 1. Setup
+## 🚀 Quick Start
+
+### Option 1: Using Streamlit Web Interface (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/omarAlnosyan/csv-profiler.git
+cd csv-profiler/bootcamp
+
+# Activate virtual environment
+.venv\Scripts\Activate  # Windows
+source .venv/bin/activate  # macOS/Linux
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run Streamlit app
+python -m streamlit run csv_upload_app.py
+```
+
+**Access the app:** Open `http://localhost:8501` in your browser
+
+**How to use:**
+1. Click "Upload File" and select your CSV
+2. Click "Generate Report" button
+3. View the analysis results (markdown format)
+4. Download JSON or Markdown report
+
+### Option 2: Using Command Line
+
 ```bash
 cd bootcamp
-python -m venv .venv
 
-# Windows
-.venv\Scripts\activate
-# Linux/Mac
-source .venv/bin/activate
+# Profile a CSV file
+python -m csv_profiler.cli profile data/employees.csv --output outputs
 
-pip install -e .
+# View results
+cat outputs/report.json
+cat outputs/report.md
 ```
 
-### 2. Choose Your Interface
+## 📁 Project Structure
 
-#### Option A: Web Interface (Recommended - Easiest)
-
-```bash
-python -m streamlit run app.py
+```
+bootcamp/
+├── csv_upload_app.py          # Streamlit web app (Main interface)
+├── src/
+│   └── csv_profiler/
+│       ├── __init__.py
+│       ├── models.py          # ColumnProfile class
+│       ├── profile.py         # Profiling logic
+│       ├── render.py          # Report generation
+│       ├── cli.py             # Command-line interface
+│       └── io.py              # File I/O utilities
+├── data/
+│   └── employees.csv          # Sample data
+└── outputs/                   # Generated reports
 ```
 
-Then:
-1. A browser window opens at http://localhost:8501
-2. Drag and drop your CSV file (or click to upload)
-3. View instant results in the browser
-4. Download JSON or Markdown reports
+## 🔧 CLI Reference
 
-Features:
-- Drag-and-drop file upload
-- Real-time data analysis
-- View summary statistics
-- Column-by-column breakdown
-- Download reports as JSON or Markdown
-- Markdown preview in browser
+### Command: `profile`
 
-#### Option B: Terminal/Command-line
-
-##### Interactive Mode (Choose File)
+**Syntax:**
 ```bash
+python -m csv_profiler.cli profile <INPUT_FILE> [OPTIONS]
+```
+
+**Options:**
+- `--output`, `-o`: Output directory (default: `outputs/`)
+- `--format`, `-f`: Output format: `json`, `markdown`, `both` (default: `both`)
+
+**Examples:**
+
+```bash
+# Profile with default settings (saves JSON + Markdown)
+python -m csv_profiler.cli profile data/employees.csv
+
+# Custom output directory
+python -m csv_profiler.cli profile data/sample.csv -o reports/
+
+# JSON only
+python -m csv_profiler.cli profile data/data.csv --format json
+
+# Markdown only
+python -m csv_profiler.cli profile data/data.csv -f markdown
+
+# Interactive mode (select file from current directory)
 python -m csv_profiler.cli
+```
 
-Available CSV files:
+## 📊 Input/Output
+
+### Input
+- **CSV files** with headers
+- Supports UTF-8 encoding
+- Any number of rows and columns
+
+### Output
+
+#### JSON Report Structure
+```json
+{
+  "summary": {
+    "rows": 5,
+    "columns": 4,
+    "column_names": ["name", "age", "script", "salary"]
+  },
+  "columns": [
+    {
+      "name": "name",
+      "type": "string",
+      "total": 5,
+      "missing": 0,
+      "unique": 5,
+      "missing_pct": 0.0
+    }
+  ]
+}
+```
+
+#### Markdown Report Format
+```markdown
+# CSV Profiling Report
+
+## Summary
+- **Rows:** 5
+- **Columns:** 4
+
+## Columns Overview
+| Column | Type   | Missing | Unique |
+|--------|--------|---------|--------|
+| name   | string | 0%      | 5      |
+| age    | int    | 20%     | 4      |
+
+## Column Details
+### name
+**Type:** string
+**Total:** 5
+**Missing:** 0
+**Missing %:** 0.0%
+**Unique:** 5
+```
+
+## 🎨 Streamlit App Features
+
+| Feature | Description |
+|---------|-------------|
+| 📁 File Upload | Drag-and-drop or browse CSV files |
+| 🔍 Analysis | Automatic profiling with statistics |
+| 📄 Markdown View | Formatted report with tables |
+| 💾 Downloads | Export as JSON or Markdown |
+| 💬 User-Friendly | Step-by-step interface |
+
+## 📦 Requirements
+
+```
+streamlit>=1.28.0
+pandas>=2.0.0
+typer>=0.9.0
+numpy>=1.24.0
+```
+
+Install all dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+## 🐍 Python Version
+- Python 3.9+
+
+## 📝 Code Documentation
+
+Each code block is documented with clear comments explaining:
+- What each section does
+- Why it's structured that way
+- How to modify it
+
+Example:
+```python
+# ============================================================================
+# File Upload Section
+# ============================================================================
+st.subheader("Step 1: Upload File")
+uploaded_file = st.file_uploader(...)  # User selects CSV file
+```
+
+## 🔄 How It Works
+
+### Processing Pipeline
+
+```
+CSV File Upload
+      ↓
+Parse CSV Data (DictReader)
+      ↓
+Generate Profile (basic_profile)
+      ↓
+Render Markdown (render_markdown)
+      ↓
+Display & Download Results
+```
+
+### ColumnProfile Model
+
+Each column gets analyzed with:
+- **name**: Column header
+- **type**: Inferred data type
+- **total**: Row count
+- **missing**: Count of empty values
+- **unique**: Distinct values
+- **missing_pct**: Missing percentage
+
+## 💡 Example Usage
+
+### Data
+```csv
+name,age,script,salary
+Ahmed,28,python,50000
+Fatima,,javascript,55000
+Hassan,25,,45000
+Layla,29,python,
+Mohammed,31,python,58000
+```
+
+### Report Output
+- **Total Rows:** 5
+- **Total Columns:** 4
+- **Missing Values:**
+  - age: 1 missing (20%)
+  - script: 1 missing (20%)
+  - salary: 1 missing (20%)
+
+## 🚀 Deployment
+
+### Local Deployment
+```bash
+python -m streamlit run csv_upload_app.py
+```
+
+### Remote Deployment (Streamlit Cloud)
+1. Push to GitHub
+2. Go to https://share.streamlit.io/
+3. Connect your GitHub repository
+4. Select `csv_upload_app.py` as the main file
+
+## 📚 Learning Resources
+
+- [Streamlit Documentation](https://docs.streamlit.io/)
+- [Typer CLI Documentation](https://typer.tiangolo.com/)
+- [Pandas Documentation](https://pandas.pydata.org/docs/)
+
+## 🤝 Contributing
+
+Feel free to:
+- Report issues
+- Suggest features
+- Submit pull requests
+
+## 📄 License
+
+MIT License
+
+## 👨‍💻 Author
+
+Created for SDAIA Bootcamp - Week 3 Day 5
+
+---
+
+**Happy profiling! 📊**
   1. employees.csv
   2. sample.csv
 Select file number: 1
