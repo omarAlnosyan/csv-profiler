@@ -50,6 +50,8 @@ Features:
 
 ```bash
 python -m csv_profiler.cli
+# or
+csv-profiler
 ```
 
 Output:
@@ -83,6 +85,8 @@ python -m csv_profiler.cli data/sample.csv
 
 # Profile with JSON only
 python -m csv_profiler.cli data/employees.csv --format json
+# or
+csv-profiler data/employees.csv -f json
 
 # Profile with Markdown only
 python -m csv_profiler.cli data/employees.csv --format markdown
@@ -109,9 +113,11 @@ cat outputs/report.md
 ```bash
 # Example 1: Interactive selection
 python -m csv_profiler.cli
+csv-profiler
 
 # Example 2: JSON output only
 python -m csv_profiler.cli data/employees.csv --format json
+csv-profiler data/employees.csv -f json
 
 # Example 3: Markdown output only
 python -m csv_profiler.cli data/employees.csv --format markdown
@@ -119,7 +125,7 @@ python -m csv_profiler.cli data/employees.csv --format markdown
 # Example 4: Custom output folder and name
 python -m csv_profiler.cli data/employees.csv --out-dir reports --report-name emp_profile_q4
 
-# Example 5: Web interface
+# Example 5: Web interface (Drag & drop uploads)
 python -m streamlit run app.py
 ```
 
