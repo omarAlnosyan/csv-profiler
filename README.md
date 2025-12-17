@@ -13,7 +13,21 @@ cd bootcamp
 cd bootcamp
 ```
 
-**Note:** The repository has a nested `bootcamp/bootcamp` structure. You need to navigate into both to reach the actual code.
+**IMPORTANT:** The repository has a nested `bootcamp/bootcamp` structure. 
+
+Your final path should end with: `...\csv-profiler\bootcamp\bootcamp\`
+
+To verify you're in the right place, run:
+```bash
+ls
+```
+
+You should see these files/folders:
+- `src/` (folder with csv_profiler code)
+- `data/` (folder with sample.csv and employees.csv)
+- `app.py`
+- `pyproject.toml`
+- `requirements.txt`
 
 ## Quick Start - Step by Step
 
@@ -87,17 +101,29 @@ The app will open in your browser at `http://localhost:8501`
 
 ### Error: "No module named 'csv_profiler'"
 
-**Solution:** Make sure you are:
-1. Inside the nested `bootcamp/bootcamp` directory
-2. Virtual environment is activated (you see `(bootcamp)` in prompt)
-3. You ran `pip install -e .` successfully
+**This means you're in the WRONG directory!**
+
+Check your current path - it should end with `\bootcamp\bootcamp\` with **two** `bootcamp` folders.
+
+**Solution:** 
+1. Run `pwd` or check the path in your terminal
+2. If you see `\bootcamp\` with only ONE bootcamp at the end, you need to run:
+   ```bash
+   cd bootcamp
+   ```
+3. Verify with: `ls` - you should see `src/`, `data/`, `app.py`, etc.
+
+Then try again:
+```bash
+python -m csv_profiler.cli data/sample.csv
+```
 
 ### Error: "File does not exist"
 
-**Solution:** Make sure you're in the correct directory with `data/` folder. List files with:
+**Solution:** Make sure you're in the correct nested `bootcamp/bootcamp` directory with the `data/` folder. Run:
 ```bash
 ls
 ```
 
-You should see `data/`, `src/`, `app.py`, etc.
+You should see `data/` folder listed.
 
