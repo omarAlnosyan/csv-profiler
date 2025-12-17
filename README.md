@@ -1,10 +1,12 @@
 # CSV Profiler
 
-Analyze CSV files in seconds.
+**Analyze CSV files in seconds** with this powerful profiling tool that generates detailed statistical reports and visualizations.
 
-## Clone the Repository
+---
 
-Clone the repository from GitHub:
+## ⚡ Quick Start (3 Steps)
+
+### 1️⃣ Clone & Navigate
 
 ```bash
 git clone https://github.com/omarAlnosyan/csv-profiler.git
@@ -12,39 +14,58 @@ cd csv-profiler
 cd bootcamp
 ```
 
-**Note on Directory Structure:**
+### 2️⃣ Setup Virtual Environment
 
-The repository has a nested structure. After cloning, you may be in:
-- `csv-profiler/bootcamp/` (correct - this has the code)
-- OR `csv-profiler/bootcamp/bootcamp/` (also correct - alternate structure)
+```bash
+uv venv -p 3.11
+.\.venv\Scripts\activate  # Windows
+. .venv/bin/activate      # Linux/Mac
+```
 
-**How to verify you're in the right place:**
+### 3️⃣ Install & Run
 
-Run:
+```bash
+pip install -r requirements.txt
+pip install -e .
+python -m csv_profiler.cli data/sample.csv
+```
+
+✅ **Done!** You should see the profiling report printed to console.
+
+---
+
+## 📋 Complete Setup Guide
+
+### Step 1: Verify Directory
+
+Make sure you're in the correct location by running:
+
 ```bash
 ls
 ```
 
-You should see:
-- `src/` (folder with csv_profiler code)
-- `data/` (folder with sample.csv and employees.csv)
-- `app.py`
-- `pyproject.toml`
-- `requirements.txt`
+You should see these files:
+```
+src/                 (csv_profiler code)
+data/                (sample.csv, employees.csv)
+app.py              
+pyproject.toml      
+requirements.txt    
+```
 
-If you see these files, **STOP** - you're in the right directory!
+**If you don't see these, do:** `cd bootcamp` one more time.
 
-## Quick Start - Step by Step
-
-### 1. Create a Virtual Environment
+### Step 2: Create Virtual Environment
 
 ```bash
 uv venv -p 3.11
 ```
 
-### 2. Activate the Virtual Environment
+This creates a `.venv/` folder with Python 3.11 isolated environment.
 
-**Windows:**
+### Step 3: Activate Virtual Environment
+
+**Windows (PowerShell):**
 ```bash
 .\.venv\Scripts\activate
 ```
@@ -54,83 +75,145 @@ uv venv -p 3.11
 . .venv/bin/activate
 ```
 
-You should see `(bootcamp)` in your terminal prompt.
+You should see `(bootcamp)` in your terminal prompt = ✅ Success!
 
-### 3. Install Dependencies
+### Step 4: Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Install the Package in Development Mode
+This installs: pandas, numpy, typer, streamlit
 
-This is **critical** - it makes the `csv_profiler` module available:
+### Step 5: Install the Package (CRITICAL)
 
 ```bash
 pip install -e .
 ```
 
-This installs the package so you can use `python -m csv_profiler.cli` command.
+This installs the `csv_profiler` package in development mode. **Don't skip this step!**
 
-### 5. Run the CLI
-
-To analyze a CSV file:
+### Step 6: Run the CLI
 
 ```bash
 python -m csv_profiler.cli data/sample.csv
 ```
 
-Or with the employees data:
-
+**Example outputs:**
 ```bash
+# Basic profile
+python -m csv_profiler.cli data/sample.csv
+
+# With employees data
 python -m csv_profiler.cli data/employees.csv
-```
 
-To save output to a specific directory:
-
-```bash
+# Save to specific output directory
 python -m csv_profiler.cli data/employees.csv --output outputs
 ```
 
-### 6. Run the Web App
-
-Start the Streamlit web interface:
+### Step 7: Run the Web App (Optional)
 
 ```bash
 streamlit run app.py
 ```
 
-The app will open in your browser at `http://localhost:8501`
+Opens interactive web interface at: `http://localhost:8501`
 
-## Troubleshooting
+---
 
-### Error: "No module named 'csv_profiler'"
+## 🆘 Troubleshooting
 
-**Cause:** The package wasn't installed or `pip install -e .` wasn't run.
+### ❌ Error: "ModuleNotFoundError: No module named 'csv_profiler'"
 
-**Solution:** Run this command (while in the correct directory):
+**Cause:** Missing `pip install -e .` step
 
+**Solution:**
 ```bash
+# Make sure you're in the correct directory (with app.py, src/, data/)
 pip install -e .
-```
-
-Wait for it to complete, then try:
-```bash
 python -m csv_profiler.cli data/sample.csv
 ```
 
-### Error: "Cannot find path" or directory not found
+---
 
-**Cause:** You're in the wrong directory.
+### ❌ Error: "Cannot find path 'bootcamp'" or directory not found
 
-**Solution:** 
-1. Check your current path with `ls` or `Get-Location`
-2. You should see `src/`, `data/`, `app.py` listed
-3. If not, navigate correctly (may need one more `cd bootcamp`)
+**Cause:** Wrong working directory
 
-### Error: "File does not exist"
+**Solution:**
+1. Check current location: `ls` or `Get-Location`
+2. Look for `src/`, `data/`, `app.py` in the output
+3. If not found, run: `cd bootcamp`
+4. Verify again with: `ls`
 
-**Cause:** The `data/` folder is missing or you're not in the right directory.
+---
 
-**Solution:** Make sure you're in a directory that has a `data/` folder with CSV files.
+### ❌ Error: "File does not exist" when running CLI
+
+**Cause:** Running from wrong directory or data folder missing
+
+**Solution:**
+1. Verify you're in a directory with `data/` folder
+2. Run: `python -m csv_profiler.cli data/sample.csv`
+3. Check that `data/sample.csv` exists: `ls data/`
+
+---
+
+### ❌ Error: "No module named 'typer'" or other dependencies
+
+**Cause:** Dependencies not installed properly
+
+**Solution:**
+```bash
+pip install -r requirements.txt
+pip install -e .
+```
+
+---
+
+## 📚 Features
+
+✅ **CSV Analysis** - Generates detailed statistical profiles
+✅ **Missing Values Detection** - Shows data quality issues
+✅ **Type Detection** - Automatically identifies column types
+✅ **Report Generation** - JSON & Markdown outputs
+✅ **Web Interface** - Interactive Streamlit dashboard
+✅ **CLI Tool** - Command-line profiler
+
+---
+
+## 📁 Project Structure
+
+```
+csv-profiler/
+├── bootcamp/               # Main project directory
+│   ├── src/
+│   │   └── csv_profiler/  # Python package
+│   │       ├── cli.py      # Command-line interface
+│   │       ├── profile.py  # Profiling logic
+│   │       ├── render.py   # Report rendering
+│   │       └── ...
+│   ├── data/              # Sample CSV files
+│   │   ├── sample.csv
+│   │   └── employees.csv
+│   ├── app.py             # Streamlit web app
+│   ├── pyproject.toml     # Package configuration
+│   └── requirements.txt   # Dependencies
+```
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Commit changes: `git commit -m "Add my feature"`
+4. Push: `git push origin feature/my-feature`
+5. Open a Pull Request
+
+---
+
+## 📝 License
+
+MIT License - See LICENSE file for details
 
