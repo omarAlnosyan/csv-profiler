@@ -4,6 +4,8 @@ from csv_profiler.io import read_csv_rows
 from csv_profiler.profile import basic_profile
 from csv_profiler.render import write_json, write_markdown
 
+app = typer.Typer()
+
 def get_available_files() -> list[Path]:
     """Get all CSV files in the data directory."""
     data_dir = Path("data")
@@ -52,8 +54,7 @@ def choose_format() -> str:
                 typer.secho("Invalid selection. Try again.", fg=typer.colors.RED)
         except ValueError:
             typer.secho("Invalid input. Enter a number.", fg=typer.colors.RED)
-
-def profile(
+@app.command()def profile(
     input_path: Path = typer.Argument(None, help="Input CSV file (optional - choose interactively if omitted)"),
     out_dir: Path = typer.Option(Path("outputs"), "--out-dir", help="Output folder"),
     report_name: str = typer.Option("report", "--report-name", help="Base name for outputs"),
@@ -115,4 +116,4 @@ def profile(
         raise typer.Exit(code=1)
 
 if __name__ == "__main__":
-    typer.run(profile)
+    app()
