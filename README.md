@@ -12,24 +12,34 @@ cd bootcamp
 
 ## Quick Start
 
-1. **Create virtual environment:**
+1. **Navigate to the bootcamp directory:**
+   ```bash
+   cd bootcamp
+   ```
+
+2. **Create virtual environment:**
    ```bash
    uv venv -p 3.11
    ```
 
-2. **Activate it:**
+3. **Activate it:**
    ```bash
    .\.venv\Scripts\activate
    ```
    (Linux/Mac: `. .venv/bin/activate`)
 
-3. **Run CLI:**
+4. **Install dependencies:**
    ```bash
-   uv run python -m csv_profiler.cli data/sample.csv
+   pip install -r requirements.txt
    ```
 
-4. **Run Web App:**
+5. **Run CLI:**
    ```bash
-   uv run streamlit run app.py
+   python -m csv_profiler.cli data/sample.csv
+   ```
+
+6. **Run Web App:**
+   ```bash
+   streamlit run app.py
    ```
 
