@@ -34,11 +34,30 @@ def choose_file() -> Path:
         except ValueError:
             typer.secho("Invalid input. Enter a number.", fg=typer.colors.RED)
 
+def choose_format() -> str:
+    """Interactive format selection."""
+    formats = ["json", "markdown", "both"]
+    
+    typer.echo("\nOutput format:")
+    for i, fmt in enumerate(formats, 1):
+        typer.echo(f"  {i}. {fmt}")
+    
+    while True:
+        try:
+            choice = typer.prompt("Select format number")
+            idx = int(choice) - 1
+            if 0 <= idx < len(formats):
+                return formats[idx]
+            else:
+                typer.secho("Invalid selection. Try again.", fg=typer.colors.RED)
+        except ValueError:
+            typer.secho("Invalid input. Enter a number.", fg=typer.colors.RED)
+
 def profile(
     input_path: Path = typer.Argument(None, help="Input CSV file (optional - choose interactively if omitted)"),
     out_dir: Path = typer.Option(Path("outputs"), "--out-dir", help="Output folder"),
     report_name: str = typer.Option("report", "--report-name", help="Base name for outputs"),
-    format: str = typer.Option("both", "--format", "-f", help="Output format: json, markdown, or both"),
+    format: str = typer.Option(None, "--format", "-f", help="Output format: json, markdown, or both (optional - choose interactively if omitted)"),
 ):
     """Profile a CSV file and generate data quality reports."""
     
@@ -47,12 +66,16 @@ def profile(
         if input_path is None:
             input_path = choose_file()
         
+        # If no format provided, prompt user to choose
+        if format is None:
+            format = choose_format()
+        
         # Validate input file exists
         if not input_path.exists():
             typer.secho(f"Error: File not found: {input_path}", fg=typer.colors.RED)
             raise typer.BadParameter(f"Input file does not exist: {input_path}")
         
-        typer.secho(f"Profiling: {input_path}", fg=typer.colors.BLUE)
+        typer.secho(f"\nProfiling: {input_path}", fg=typer.colors.BLUE)
         
         rows = read_csv_rows(input_path)
         if not rows:
