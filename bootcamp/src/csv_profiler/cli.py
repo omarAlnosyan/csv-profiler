@@ -104,10 +104,38 @@ def choose_format() -> str:
         except ValueError:
             typer.secho("Invalid input. Enter a number.", fg=typer.colors.RED)
 
+def choose_output_directory() -> Path:
+    """Interactive output directory selection."""
+    typer.echo("\n" + "="*60)
+    typer.echo("OUTPUT LOCATION")
+    typer.echo("="*60)
+    
+    while True:
+        output_dir = typer.prompt("Enter the path where to save the report (or press Enter for 'outputs')").strip()
+        
+        # Use default if empty
+        if not output_dir:
+            output_dir = "outputs"
+        
+        # Remove quotes if present
+        output_dir = output_dir.strip('"').strip("'")
+        output_path = Path(output_dir)
+        
+        # Create directory if it doesn't exist
+        try:
+            output_path.mkdir(parents=True, exist_ok=True)
+            typer.secho(f"✓ Output will be saved to: {output_path.absolute()}", fg=typer.colors.GREEN)
+            return output_path
+        except Exception as e:
+            typer.secho(f"Error: Cannot create directory - {e}", fg=typer.colors.RED)
+            retry = typer.prompt("Try another path? (yes/no)").lower()
+            if retry != "yes" and retry != "y":
+                raise typer.Exit(code=1)
+
 @app.command()
 def profile(
     input_path: Path = typer.Argument(None, help="Input CSV file (optional - choose interactively if omitted)"),
-    out_dir: Path = typer.Option(Path("outputs"), "--out-dir", help="Output folder"),
+    out_dir: Path = typer.Option(None, "--out-dir", help="Output folder (optional - choose interactively if omitted)"),
     report_name: str = typer.Option("report", "--report-name", help="Base name for outputs"),
     format: str = typer.Option(None, "--format", "-f", help="Output format: json, markdown, or both (optional - choose interactively if omitted)"),
 ):
@@ -121,6 +149,10 @@ def profile(
         # If no format provided, prompt user to choose
         if format is None:
             format = choose_format()
+        
+        # If no output directory provided, prompt user to choose
+        if out_dir is None:
+            out_dir = choose_output_directory()
         
         # Validate input file exists
         if not input_path.exists():
