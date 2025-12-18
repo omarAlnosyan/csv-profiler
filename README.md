@@ -16,9 +16,12 @@ cd bootcamp
 
 ## Installation
 
-Make sure you are in the `bootcamp/bootcamp` directory, then:
+**⚠️ IMPORTANT: Make sure you are in the `bootcamp/bootcamp` directory (the inner one, not the outer one)**
 
 ```bash
+# Verify you're in the correct directory:
+# Current path should end with: .../csv-profiler/bootcamp/bootcamp
+
 uv venv -p 3.11
 .\.venv\Scripts\activate  # Windows
 . .venv/bin/activate      # Linux/Mac
@@ -26,7 +29,12 @@ uv venv -p 3.11
 pip install -e .
 ```
 
-After installation, you should be in the `bootcamp/bootcamp` folder to run commands.
+**✅ After installation, verify the CLI works:**
+```bash
+python -m csv_profiler.cli --help
+```
+
+If you get a "ModuleNotFoundError", you're in the wrong directory. Navigate to the inner `bootcamp/bootcamp` folder.
 
 ## Run
 
