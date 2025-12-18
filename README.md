@@ -4,7 +4,6 @@ Analyze CSV files in seconds.
 
 Two ways to use it: **Web Interface** or **Command-line**.
 
-![CSV Profiler Interface](assets/interface.png)
 
 ## Setup
 
@@ -39,35 +38,38 @@ streamlit run app.py
 python -m csv_profiler.cli profile
 ```
 
-This will launch an interactive prompt where you can:
-1. **Choose file location:**
-   - Option 1: Select from CSV files in the `data/` directory
-   - Option 2: Enter your own CSV file path from anywhere on your local machine
+#### Reading CSV from Local Machine
 
-2. **Select output format:**
-   - json
-   - markdown
-   - both
+You can read CSV files from anywhere on your local machine:
 
-#### Example with Custom File Path
-
+**Interactive Mode (Recommended):**
 ```bash
-# Interactive mode (will prompt you to enter file path)
 python -m csv_profiler.cli profile
+```
+This will prompt you to:
+1. Choose file location (data/ directory or custom path)
+2. Enter your CSV file path
+3. Select output format (json, markdown, or both)
 
-# Direct mode with custom file
-python -m csv_profiler.cli profile "C:\Users\YourName\Documents\mydata.csv" -f json
+**Direct Mode with Custom File Path:**
+```bash
+# Windows example
+python -m csv_profiler.cli profile "C:\Users\YourName\Documents\mydata.csv"
 
-# Direct mode with custom file and custom output
-python -m csv_profiler.cli profile "C:\Users\YourName\Documents\mydata.csv" --out-dir custom_outputs --report-name my_report -f both
+# Linux/Mac example
+python -m csv_profiler.cli profile "/Users/yourname/Documents/mydata.csv"
 ```
 
-#### Command Options
+**With Custom Output Options:**
+```bash
+python -m csv_profiler.cli profile "C:\path\to\your\file.csv" --out-dir my_outputs --report-name my_report -f json
+```
 
-- `INPUT_PATH` (optional): Path to your CSV file
-- `--out-dir` (default: `outputs`): Output directory for reports
-- `--report-name` (default: `report`): Base name for output files
-- `-f, --format` (optional): Output format (json, markdown, or both)
+**Command Options:**
+- `INPUT_PATH` - Path to your CSV file (optional - interactive if omitted)
+- `--out-dir` - Output directory (default: outputs)
+- `--report-name` - Report name (default: report)
+- `-f, --format` - Format: json, markdown, or both
 
 ## View Results
 
