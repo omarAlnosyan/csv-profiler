@@ -4,6 +4,8 @@ Analyze CSV files in seconds.
 
 Two ways to use it: **Web Interface** or **Command-line**.
 
+![CSV Profiler Interface](assets/interface.png)
+
 ## Setup
 
 ```bash

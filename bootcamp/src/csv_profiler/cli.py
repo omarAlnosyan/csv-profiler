@@ -14,25 +14,69 @@ def get_available_files() -> list[Path]:
     return sorted(data_dir.glob("*.csv"))
 
 def choose_file() -> Path:
-    """Interactive file selection."""
+    """Interactive file selection - local or from data directory."""
     files = get_available_files()
     
-    if not files:
-        typer.secho("Error: No CSV files found in data/ directory", fg=typer.colors.RED)
-        raise typer.Exit(code=1)
+    typer.echo("\n" + "="*60)
+    typer.echo("CSV FILE SELECTION")
+    typer.echo("="*60)
     
-    typer.echo("\nAvailable CSV files:")
-    for i, file in enumerate(files, 1):
-        typer.echo(f"  {i}. {file.name}")
+    # Show options
+    typer.echo("\nChoose file location:")
+    typer.echo("  1. From data/ directory")
+    typer.echo("  2. Custom path on your machine")
     
     while True:
         try:
-            choice = typer.prompt("Select file number")
-            idx = int(choice) - 1
-            if 0 <= idx < len(files):
-                return files[idx]
+            location_choice = typer.prompt("Select option (1-2)")
+            
+            if location_choice == "1":
+                if not files:
+                    typer.secho("Error: No CSV files found in data/ directory", fg=typer.colors.RED)
+                    typer.echo("Try option 2 to specify a custom path.")
+                    continue
+                
+                typer.echo("\nAvailable CSV files in data/ directory:")
+                for i, file in enumerate(files, 1):
+                    typer.echo(f"  {i}. {file.name}")
+                
+                while True:
+                    try:
+                        choice = typer.prompt("Select file number")
+                        idx = int(choice) - 1
+                        if 0 <= idx < len(files):
+                            return files[idx]
+                        else:
+                            typer.secho("Invalid selection. Try again.", fg=typer.colors.RED)
+                    except ValueError:
+                        typer.secho("Invalid input. Enter a number.", fg=typer.colors.RED)
+                break
+            
+            elif location_choice == "2":
+                while True:
+                    file_path = typer.prompt("\nEnter the full path to your CSV file").strip()
+                    file_path = Path(file_path)
+                    
+                    if not file_path.exists():
+                        typer.secho(f"Error: File not found at {file_path}", fg=typer.colors.RED)
+                        retry = typer.prompt("Try another path? (yes/no)").lower()
+                        if retry != "yes" and retry != "y":
+                            raise typer.Exit(code=1)
+                    elif not file_path.is_file():
+                        typer.secho(f"Error: {file_path} is not a file", fg=typer.colors.RED)
+                        retry = typer.prompt("Try another path? (yes/no)").lower()
+                        if retry != "yes" and retry != "y":
+                            raise typer.Exit(code=1)
+                    elif not str(file_path).lower().endswith('.csv'):
+                        typer.secho("Warning: File does not have .csv extension", fg=typer.colors.YELLOW)
+                        confirm = typer.prompt("Continue anyway? (yes/no)").lower()
+                        if confirm == "yes" or confirm == "y":
+                            return file_path
+                    else:
+                        return file_path
+                break
             else:
-                typer.secho("Invalid selection. Try again.", fg=typer.colors.RED)
+                typer.secho("Invalid option. Please enter 1 or 2.", fg=typer.colors.RED)
         except ValueError:
             typer.secho("Invalid input. Enter a number.", fg=typer.colors.RED)
 
@@ -40,18 +84,21 @@ def choose_format() -> str:
     """Interactive format selection."""
     formats = ["json", "markdown", "both"]
     
-    typer.echo("\nOutput format:")
+    typer.echo("\n" + "="*60)
+    typer.echo("OUTPUT FORMAT")
+    typer.echo("="*60)
+    typer.echo("\nSelect output format:")
     for i, fmt in enumerate(formats, 1):
         typer.echo(f"  {i}. {fmt}")
     
     while True:
         try:
-            choice = typer.prompt("Select format number")
+            choice = typer.prompt("Select format number (1-3)")
             idx = int(choice) - 1
             if 0 <= idx < len(formats):
                 return formats[idx]
             else:
-                typer.secho("Invalid selection. Try again.", fg=typer.colors.RED)
+                typer.secho("Invalid selection. Please enter 1, 2, or 3.", fg=typer.colors.RED)
         except ValueError:
             typer.secho("Invalid input. Enter a number.", fg=typer.colors.RED)
 
