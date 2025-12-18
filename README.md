@@ -11,17 +11,13 @@ Two ways to use it: **Web Interface** or **Command-line**.
 git clone https://github.com/omarAlnosyan/csv-profiler.git
 cd csv-profiler
 cd bootcamp
-cd bootcamp
 ```
 
 ## Installation
 
-**⚠️ IMPORTANT: Make sure you are in the `bootcamp/bootcamp` directory (the inner one, not the outer one)**
+**Make sure you are in the `bootcamp` directory (after cloning):**
 
 ```bash
-# Verify you're in the correct directory:
-# Current path should end with: .../csv-profiler/bootcamp/bootcamp
-
 uv venv -p 3.11
 .\.venv\Scripts\activate  # Windows
 . .venv/bin/activate      # Linux/Mac
@@ -34,7 +30,7 @@ pip install -e .
 python -m csv_profiler.cli --help
 ```
 
-If you get a "ModuleNotFoundError", you're in the wrong directory. Navigate to the inner `bootcamp/bootcamp` folder.
+If you get a "ModuleNotFoundError", you're in the wrong directory. Make sure you're in the `csv-profiler/bootcamp` directory (not nested deeper).
 
 ## Run
 
