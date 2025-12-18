@@ -43,7 +43,7 @@ streamlit run app.py
 ### Option B: Command-line
 
 ```bash
-python -m csv_profiler.cli profile
+csv-profiler
 ```
 
 #### Reading CSV from Local Machine
@@ -52,7 +52,7 @@ You can read CSV files from anywhere on your local machine:
 
 **Interactive Mode (Recommended):**
 ```bash
-python -m csv_profiler.cli profile
+csv-profiler
 ```
 This will prompt you to:
 1. Choose file location (data/ directory or custom path)
@@ -62,15 +62,15 @@ This will prompt you to:
 **Direct Mode with Custom File Path:**
 ```bash
 # Windows example
-python -m csv_profiler.cli profile "C:\Users\YourName\Documents\mydata.csv"
+csv-profiler "C:\Users\YourName\Documents\mydata.csv"
 
 # Linux/Mac example
-python -m csv_profiler.cli profile "/Users/yourname/Documents/mydata.csv"
+csv-profiler "/Users/yourname/Documents/mydata.csv"
 ```
 
 **With Custom Output Options:**
 ```bash
-python -m csv_profiler.cli profile "C:\path\to\your\file.csv" --out-dir my_outputs --report-name my_report -f json
+csv-profiler "C:\path\to\file.csv" --out-dir my_outputs --report-name my_report --format json
 ```
 
 **Command Options:**
