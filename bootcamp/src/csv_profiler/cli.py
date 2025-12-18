@@ -55,6 +55,8 @@ def choose_file() -> Path:
             elif location_choice == "2":
                 while True:
                     file_path = typer.prompt("\nEnter the full path to your CSV file").strip()
+                    # Remove quotes if user copied path with quotes
+                    file_path = file_path.strip('"').strip("'")
                     file_path = Path(file_path)
                     
                     if not file_path.exists():
