@@ -10,6 +10,7 @@ Two ways to use it: **Web Interface** or **Command-line**.
 git clone https://github.com/omarAlnosyan/csv-profiler.git
 cd csv-profiler
 cd bootcamp
+cd bootcamp
 ```
 
 ## Installation
@@ -19,44 +20,36 @@ uv venv -p 3.11
 .\.venv\Scripts\activate  # Windows
 . .venv/bin/activate      # Linux/Mac
 
-pip install -r requirements.txt
 pip install -e .
 ```
 
 ## Run
 
-### Option A: Web Interface (Recommended - Easiest)
+### Option A: Web Interface
 
 ```bash
-python -m streamlit run app.py
+streamlit run app.py
 ```
 
-
 ### Option B: Command-line
-
-#### Interactive Mode (Choose File)
 
 ```bash
 csv-profiler
 ```
 
-#### View Results
+## View Results
 
 ```bash
-# Windows
+# Windows - Markdown
 type outputs\report.md
 
-# Linux/Mac
-cat outputs/report.md
-```
-
-#### View JSON File
-
-```bash
-# Windows
+# Windows - JSON
 type outputs\report.json
 
-# Linux/Mac
+# Linux/Mac - Markdown
+cat outputs/report.md
+
+# Linux/Mac - JSON
 cat outputs/report.json
 ```
 
