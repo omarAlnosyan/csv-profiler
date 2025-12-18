@@ -16,6 +16,8 @@ cd bootcamp
 
 ## Installation
 
+Make sure you are in the `bootcamp/bootcamp` directory, then:
+
 ```bash
 uv venv -p 3.11
 .\.venv\Scripts\activate  # Windows
@@ -23,6 +25,8 @@ uv venv -p 3.11
 
 pip install -e .
 ```
+
+After installation, you should be in the `bootcamp/bootcamp` folder to run commands.
 
 ## Run
 
